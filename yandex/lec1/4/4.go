@@ -1,43 +1,18 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
 )
 
 func main() {
-	file, _ := os.Open("input.txt")
-	defer file.Close()
-
-	sc := bufio.NewScanner(file)
-	sc.Scan()
-	number := sc.Text()
-	var checks []string
-	replacer := strings.NewReplacer("(", "", ")", "", "-", "", "+7", "")
-
-	for sc.Scan() {
-		checks = append(checks, sc.Text())
+	var a, b, c int
+	fmt.Scanf("%d\n%d\n%d\n", &a, &b, &c)
+	if c < 0 {
+		fmt.Println("NO SOLUTION")
+	} else if a == 0 {
+		fmt.Println("MANY SOLUTIONS")
+	} else {
+		res := (c*c - b) / a
+		fmt.Print(res)
 	}
-	number = fixNumber(number, replacer)
-	for _, check := range checks {
-		if number == fixNumber(check, replacer) {
-			fmt.Println("YES")
-
-		} else {
-			fmt.Println("NO")
-
-		}
-	}
-}
-
-func fixNumber(number string, replacer *strings.Replacer) string {
-	result := strings.TrimPrefix(number, "8")
-	result = replacer.Replace(result)
-
-	if len(result) < 10 {
-		result = "495" + result
-	}
-	return result
 }
