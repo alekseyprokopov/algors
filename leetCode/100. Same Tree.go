@@ -17,5 +17,21 @@ func main() {
  * }
  */
 func isSameTree(p *TreeNode, q *TreeNode) bool {
-	return false
+	flag := true
+	check(p, q, &flag)
+	return flag
+}
+
+func check(p *TreeNode, q *TreeNode, flag *bool) {
+	if p == nil && q == nil {
+		return
+	}
+	if (p == nil && q != nil) || (p != nil && q == nil) || p.Val != q.Val {
+		*flag = false
+		return
+	}
+
+	check(p.Left, q.Left, flag)
+	check(p.Right, q.Right, flag)
+
 }
